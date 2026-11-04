@@ -11,7 +11,7 @@ public class TakingTurnsQueueTests
     // Scenario: Create a queue with the following people and turns: Bob (2), Tim (5), Sue (3) and
     // run until the queue is empty
     // Expected Result: Bob, Tim, Sue, Bob, Tim, Sue, Tim, Sue, Tim, Tim
-    // Defect(s) Found: 
+    // Defect(s) Found: No defect found: the empty queue already throws InvalidOperationException with the required message.Originally failed because a person with negative turns was not re-enqueued. Fixed infinite-turn handling without changing Turns.Originally failed because a person with zero turns was not re-enqueued. Fixed infinite-turn handling without changing Turns.Originally failed because new people were inserted at the front, disrupting round-robin order. Fixed FIFO enqueue.Originally failed because PersonQueue inserted new people at the front instead of the back (not FIFO). Fixed Enqueue to append.
     public void TestTakingTurnsQueue_FiniteRepetition()
     {
         var bob = new Person("Bob", 2);
