@@ -1,18 +1,18 @@
+
+using System;
+using System.Collections.Generic;
+
 /// <summary>
 /// Defines a maze using a dictionary. The dictionary is provided by the
-/// user when the Maze object is created. The dictionary will contain the
-/// following mapping:
+/// user when the Maze object is created. The dictionary contains:
 ///
 /// (x,y) : [left, right, up, down]
 ///
-/// 'x' and 'y' are integers and represents locations in the maze.
-/// 'left', 'right', 'up', and 'down' are boolean are represent valid directions
+/// If a direction is false, there is a wall in that direction.
+/// If a direction is true, movement is allowed.
 ///
-/// If a direction is false, then we can assume there is a wall in that direction.
-/// If a direction is true, then we can proceed.  
-///
-/// If there is a wall, then throw an InvalidOperationException with the message "Can't go that way!".  If there is no wall,
-/// then the 'currX' and 'currY' values should be changed.
+/// If movement is blocked, an InvalidOperationException is thrown.
+/// Otherwise, the current coordinates are updated.
 /// </summary>
 public class Maze
 {
@@ -25,41 +25,52 @@ public class Maze
         _mazeMap = mazeMap;
     }
 
-    // TODO Problem 4 - ADD YOUR CODE HERE
     /// <summary>
-    /// Check to see if you can move left.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Moves left if the path is open.
     /// </summary>
     public void MoveLeft()
     {
-        // FILL IN CODE
+        Move(0, -1, 0);
     }
 
     /// <summary>
-    /// Check to see if you can move right.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Moves right if the path is open.
     /// </summary>
     public void MoveRight()
     {
-        // FILL IN CODE
+        Move(1, 1, 0);
     }
 
     /// <summary>
-    /// Check to see if you can move up.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Moves up if the path is open.
     /// </summary>
     public void MoveUp()
     {
-        // FILL IN CODE
+        Move(2, 0, -1);
     }
 
     /// <summary>
-    /// Check to see if you can move down.  If you can, then move.  If you
-    /// can't move, throw an InvalidOperationException with the message "Can't go that way!".
+    /// Moves down if the path is open.
     /// </summary>
     public void MoveDown()
     {
-        // FILL IN CODE
+        Move(3, 0, 1);
+    }
+
+    /// <summary>
+    /// Checks whether movement is allowed and updates the coordinates.
+    /// </summary>
+    private void Move(int direction, int changeX, int changeY)
+    {
+        var currentPosition = (_currX, _currY);
+
+        if (!_mazeMap[currentPosition][direction])
+        {
+            throw new InvalidOperationException("Can't go that way!");
+        }
+
+        _currX += changeX;
+        _currY += changeY;
     }
 
     public string GetStatus()
